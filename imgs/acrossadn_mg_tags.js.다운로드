@@ -1,0 +1,172 @@
+try{
+	if(typeof acrossADN_health_staus=="undefined") var acrossADN_health_staus="";
+	if(typeof acrossADN_health_load_staus=="undefined") var acrossADN_health_load_staus="";
+	if(typeof acrossADN_tags_load_staus=="undefined") var acrossADN_tags_load_staus="";
+
+}catch(e){}
+var acrossADN_uid = "";
+
+acrossADN_uid=localStorage.getItem('rb_adn_uid');
+if(typeof(acrossADN_uid)==="undefined" || acrossADN_uid===null){
+    acrossADN_uid="";
+}
+
+window.acrossADN_Data = window.acrossADN_Data || [];
+
+function acrossADN_loadScript(src, mode, timeout = 2000) {
+    try{
+        if(mode!="health" && !acrossADN_health_staus ){
+            return;
+        }
+    }catch(e){}
+
+    try{
+        return new Promise((resolve, reject) => {
+            const script = document.createElement("script");
+            script.src = src;
+            script.async = true;
+			acrossADN_health_load_staus = true;
+            let timer = setTimeout(() => {
+				acrossADN_health_load_staus = false;
+                script.remove(); 
+            }, timeout);
+
+            script.onload = () => {
+                clearTimeout(timer);
+				if(mode=="tags"){
+					acrossADN_tags_load_staus="ok";
+                }else if(mode=='fp'){
+                    var fpPromise = FingerprintJS.load()
+                    // Analyze the visitor when necessary.
+                    fpPromise
+                    .then(function (fp) { return fp.get() })
+                    .then( function(result) { 
+                        //console.log(result.requestId, result.visitorId) 
+                        var visitorId = result.visitorId + "_" + Math.floor(Math.random()*99999999999);
+                        acrossADN_Storage.setItem("across_adn_fp_ids", visitorId);
+                        acrossADN_fp_flag = "ok";
+                    } )
+                }
+            };
+
+            script.onerror = () => {
+                clearTimeout(timer);
+				acrossADN_health_load_staus = false;
+                script.remove();
+            };
+
+            document.head.appendChild(script);
+        });
+    }catch(e){}
+}
+
+async function acrossADN_fetchData() {
+    try{
+        var acrossADN_chk_todays=new Date();
+        var acrossADN_chk_dd=acrossADN_chk_todays.getDate();
+        var acrossADN_chk_mm= (acrossADN_chk_todays.getMonth()+1);
+        var acrossADN_chk_yyyy=acrossADN_chk_todays.getFullYear();
+        var acrossADN_chk_hours=acrossADN_chk_todays.getHours();
+        var acrossADN_chk_mins=acrossADN_chk_todays.getMinutes();
+
+        var acrossADN_health_chk_min=parseInt(acrossADN_chk_mins)+10;
+        if(parseInt(acrossADN_health_chk_min)>=60){
+            acrossADN_health_chk_min=acrossADN_health_chk_min-60;
+            acrossADN_chk_hours=parseInt(acrossADN_chk_hours)+1;
+        }
+        if(parseInt(acrossADN_chk_hours)>23)
+        {
+            acrossADN_chk_hours=0;
+            acrossADN_chk_mm=parseInt(acrossADN_chk_mm)+1;
+        }
+        if(parseInt(acrossADN_chk_dd)<10) acrossADN_chk_dd='0'+acrossADN_chk_dd;
+        if(parseInt(acrossADN_chk_mm)<10) acrossADN_chk_mm='0'+acrossADN_chk_mm;
+        if(parseInt(acrossADN_chk_hours)<10) acrossADN_chk_hours='0'+acrossADN_chk_hours;
+        if(parseInt(acrossADN_chk_mins)<10) acrossADN_chk_mins='0'+acrossADN_chk_mins;
+        if(parseInt(acrossADN_health_chk_min)<10) acrossADN_health_chk_min='0'+acrossADN_health_chk_min;
+
+        acrossADN_chk_full_date=acrossADN_chk_yyyy+acrossADN_chk_mm+acrossADN_chk_dd+acrossADN_chk_hours+acrossADN_chk_mins;
+        acrossADN_health_chk_full_date=acrossADN_chk_yyyy+acrossADN_chk_mm+acrossADN_chk_dd+acrossADN_chk_hours+acrossADN_health_chk_min;
+
+        var acrossADN_health_val=localStorage.getItem('adn_health_chk_time');
+        if(typeof(acrossADN_health_val)!="undefined" && acrossADN_health_val!=null)
+        {
+            if(parseInt(acrossADN_chk_full_date) <= parseInt(acrossADN_health_val)) return null;
+        }
+
+        const acrossADN_controller = new AbortController(); // 컨트롤러 생성
+        const signal = acrossADN_controller.signal; // 신호 가져오기
+    
+        // 2초 후 요청 취소 (Abort 실행)
+        const timeoutId = setTimeout(() => {
+            acrossADN_health_staus = "";
+            localStorage.setItem('adn_health_chk_time', acrossADN_health_chk_full_date);
+            acrossADN_controller.abort();
+        }, 2000);
+
+        const response = await fetch("https://kn.acrosspf.com/acrossadn_tags.ad?ref="+encodeURIComponent(document.location.origin)+"&t="+Math.floor(Math.random()*99999999999), { 
+            method: "GET",
+            mode: "cors",  // CORS 요청 활성화
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            signal,
+        });
+
+        if (!response.ok) {
+            acrossADN_health_staus = "";
+            localStorage.setItem('adn_health_chk_time', acrossADN_health_chk_full_date);
+            clearTimeout(timeoutId);
+            throw new Error(`HTTP 오류! 상태 코드: ${response.status}`);
+        }else{
+            const data = await response.json();
+            acrossADN_health_staus = "ok";
+            localStorage.removeItem('adn_health_chk_time');
+            clearTimeout(timeoutId);
+
+            try{
+                if(typeof(acrossADN_uid)==="undefined" || acrossADN_uid===null || acrossADN_uid==""){
+                    acrossADN_uid=data.uid;
+                    localStorage.setItem("rb_adn_uid", data.uid);
+                } else {
+                    if(data.uid!=acrossADN_uid)
+                    {
+                        acrossADN_uid=data.uid;
+                        localStorage.setItem("rb_adn_uid", data.uid);
+                    }
+                }
+            }catch(e){}
+
+            acrossADN_loadScript(data.src, 'tags', 1000);
+            
+        }
+    } catch (error) {
+        if (error.name === "AbortError") {
+            acrossADN_health_staus = "";
+            clearTimeout(timeoutId);
+            localStorage.setItem('adn_health_chk_time', acrossADN_health_chk_full_date);
+        } else {
+            console.error("오류 발생:", error);
+        }
+    }
+}
+
+acrossADN_fetchData();
+
+
+function acrossADN_asyncPush(value, delay) {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+			if(acrossADN_tags_load_staus=="ok")
+			{
+				acrossADN_Data.push(value);
+				resolve(acrossADN_Data);
+			}
+        }, delay);
+    });
+}
+
+function acrossADN_tag(){
+	acrossADN_asyncPush(arguments, 1000)
+}

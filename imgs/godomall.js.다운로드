@@ -1,0 +1,45 @@
+document.addEventListener('DOMContentLoaded', () => {
+  if (!window.GodomallSDK) {
+    console.info(
+      '%c디프로모션 고도몰 연동 불가.%c\n디프로모션 고도몰 연동 가이드를 확인해주세요.',
+      'color: red; font-weight: bold; background:yellow; padding: 5px 3px; margin-bottom: 10px;',
+      'color: inherit; font-weight: normal;',
+    );
+    return;
+  }
+
+  window.godomallSdkForDPro = window.GodomallSDK.init(
+    'b1hLbVFoS1lUeUZrZXdjRUV2Q21CZz09',
+  );
+
+  const className = 'dpromotion-area';
+  document.querySelectorAll(`.${className}`).forEach((el) => {
+    const appId = el.dataset.id;
+    if (document.querySelectorAll(`.dpromotion-script-${appId}`).length > 0) {
+      return;
+    }
+
+    const script = document.createElement('script');
+    script.src = `https://play.dpromotion.io/play/${appId}?use_type=script`;
+    script.classList.add(`dpromotion-script-${appId}`);
+    el.appendChild(script);
+
+    script.addEventListener('load', () => {
+      const DPromotionRootObject = window[`DPromotion-${appId}`];
+      if (DPromotionRootObject) {
+        window.godomallSdkForDPro.getMemberProfile((err, res) => {
+          if (err) {
+            console.error(err);
+            return;
+          }
+          DPromotionRootObject.addConfig('platformProfile', {
+            user: {
+              id: res.memberId ?? res.id ?? '',
+              no: res.memberNo ?? res.sno ?? '',
+            },
+          });
+        });
+      }
+    });
+  });
+});
