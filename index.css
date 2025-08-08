@@ -1,5 +1,19 @@
 @charset "UTF-8";
 
+
+/* 
+
+    noto sans korean: 한글
+     font-family: "Noto Sans KR", sans-serif;
+
+    noto sans: 영어
+     font-family: "Noto Sans", sans-serif;
+    
+    DM serif Display: gnb 메뉴
+     font-family: "DM Serif Display", serif;
+
+*/
+
 * {
     margin: 0;
     padding: 0;
@@ -7,9 +21,12 @@
 
 a {
     text-decoration: none;
+    color: #000;
 }
 
-ul, ol, li {
+ul,
+ol,
+li {
     list-style: none;
 }
 
@@ -24,18 +41,119 @@ ul, ol, li {
     max-width: 1920px;
     width: 100%;
     margin: 0 auto;
+    position: fixed;
+
+    z-index: 999;
+    background-color: #fff;
 }
 
 .header .header_top {
     display: flex;
     align-items: center;
-    
+
 }
 
 .header .header_top .header_top_cont {
+    display: flex;
     justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1920px;
     padding: 0 26px;
     height: 76px;
 }
 
-.header .header_top .header_top_cont
+.header .header_top .header_top_cont .h1_logo {
+    width: 15%;
+    margin-top: 15px;
+
+}
+
+.header .header_top .header_top_cont .h1_logo>a {
+    display: block;
+
+}
+
+.header .header_top .header_top_cont .h1_logo>a>img {
+    vertical-align: middle;
+}
+
+.header .header_top .header_top_cont .header_gnb {
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.header .header_top .header_top_cont .header_gnb .depth0>li>a {
+    font-family: "Noto Sans", sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    padding: 0 34px;
+    letter-spacing: -1;
+}
+
+
+.header .header_top .header_top_cont>ul {
+    display: flex;
+    width: 15%;
+    align-items: center;
+}
+
+.top_member_box {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    column-gap: 32px;
+    height: 100%;
+}
+
+.top-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    font-size: 0px;
+    text-indent: -9999px;
+}
+
+.top-icon.search {
+    background-image: url(
+https://www.soopsori.co.kr/data/skin/front/soopsori_v1/img/common/btn/btn_top_search.svg);
+}
+
+.top-icon.location {
+    background-image: url(https://www.soopsori.co.kr/data/skin/front/soopsori_v1/img/common/btn/btn_top_location.svg);
+}
+
+.top-icon.cart {
+    background-image: url(https://www.soopsori.co.kr/data/skin/front/soopsori_v1/img/common/btn/btn_top_cart.svg);
+}
+
+.top-icon.user {
+    background-image: url(https://www.soopsori.co.kr/data/skin/front/soopsori_v1/img/common/btn/btn_top_user.svg);
+}
+
+.main_visual {
+    
+    width: 100%;
+   
+    position: relative; /* .pager의 기준!!!! */
+}
+
+.slide-box {
+    width: 100%;
+
+    overflow: hidden;
+    outline: 3px solid red;
+}
+
+.slide-box .gallery {
+    display: flex;
+    width: 300%;
+    position: relative; /* 좌표를 사용하기 위해 position 설정! */
+}
