@@ -11,6 +11,9 @@
         rel="stylesheet">
 
     <link rel="stylesheet" href="index.css">
+
+    <script src="jquery-1.12.4.min.js"></script>
+    <script src="index.js"></script>
 </head>
 
 <body>
@@ -68,41 +71,56 @@
                 <div class="main_visual">
                     <div class="only-pc">
                         <div class="slider-frame slide-box">
-                            <div class="swiper gallery">
+                            <div class="swiper wood-bed">
                                 <div class="swiper-slide">
                                     <a href="#">
                                         <img src="imgs/2410da833f32d727ef4c16ae4a75712d_62366.jpg" alt="">
                                     </a>
-                                    <p class="txt1">MARON</p>
-                                    <p class="txt2">감성과 기능을 더한 숲소리 NEW 원목 가드침대</p>
+                                    <div class="txt-box">
+                                        <p class="txt1">MARON</p>
+                                        <p class="txt2">나무 향 가득히 꾸민 우리 아이방, 마론 시리즈</p>
+                                    </div>
                                 </div>
 
                                 <div class="swiper-slide">
                                     <a href="#">
                                         <img src="imgs/f3273c49b6ff5fdd950c916b69dfa6bb_19706.jpg" alt="">
                                     </a>
-                                    <p class="txt1">POMIO</p>
-                                    <p class="txt2">감성과 기능을 더한 숲소리 NEW 원목 가드침대</p>
+                                    <div class="txt-box">
+                                        <p class="txt1">POMIO</p>
+                                        <p class="txt2">감성과 기능을 더한 숲소리 NEW 원목 가드침대</p>
+                                    </div>
                                 </div>
 
                                 <div class="swiper-slide">
                                     <a href="#">
                                         <img src="imgs/fa7d17ba94c63ab303614c66437df66e_18371.jpg" alt="">
                                     </a>
-                                    <p class="txt1">POMIO</p>
-                                    <p class="txt2">감성과 기능을 더한 숲소리 NEW 원목 가드침대</p>
+                                    <div class="txt-box">
+                                        <p class="txt1">ARUNI</p>
+                                        <p class="txt2">하이엔드 원목 범퍼침대, 아루니 침대</p>
+                                    </div>
+                                </div>
+
+                                <div class="swiper-slide">
+                                    <a href="#">
+                                        <img src="imgs/2410da833f32d727ef4c16ae4a75712d_62366.jpg" alt="">
+                                    </a>
+                                    <div class="txt-box">
+                                        <p class="txt1">MARON</p>
+                                        <p class="txt2">나무 향 가득히 꾸민 우리 아이방, 마론 시리즈</p>
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="slider-control">
-                                <div class="dots pager">
-                                    <p class="swiper-pagination swiper-pagination-bullets swiper-pagination-horizontal">
-                                        <span class="swiper-pagination-bullet"></span>
-                                        <span class="swiper-pagination-bullet"></span>
-                                        <span class="swiper-pagination-bullet swiper-pagination-bullet-active"
-                                            aria-current="true">
+                                <div class="dots">
+                                    <div class="swiper-pagination swiper-pagination-bullets swiper-pagination-horizontal pager">
+                                        <span class="swiper-pagination-bullet swiper-pagination-bullet-active" id="btn0"></span>
+                                        <span class="swiper-pagination-bullet" id="btn1"></span>
+                                        <span class="swiper-pagination-bullet" id="btn2">
                                         </span>
-                                    </p>
+                                    </div>
                                 </div>
                                 <div class="num">
                                     <span class="current">3</span> | <strong class="total">3</strong>
@@ -164,18 +182,17 @@
                                                         </li>
                                                     </ul>
                                                     <div class="slider-control">
+                                                        <div class="dots">
+                                                            <div class="swiper-pagination swiper-pagination-bullets swiper-pagination-horizontal">
+                                                                <span class="swiper-pagination-bullet"></span>
+                                                                <span class="swiper-pagination-bullet"></span>
+                                                                <span class="swiper-pagination-bullet swiper-pagination-bullet-active"
+                                                                    aria-current="true"></span>
+                                                            </div>
+                                                        </div>
                                                         <p class="swiper-prev" tabindex="0" role="button"
                                                             aria-label="Previous slide"
                                                             aria-controls="swiper-wrapper-58d93ccb75febcb9"></p>
-                                                        <div class="dots">
-                                                            <p
-                                                                class="swiper-pagination swiper-pagination-bullets swiper-pagination-horizontal">
-                                                                <span
-                                                                    class="swiper-pagination-bullet swiper-pagination-bullet-active"
-                                                                    aria-current="true"></span><span
-                                                                    class="swiper-pagination-bullet"></span>
-                                                            </p>
-                                                        </div>
                                                         <p class="swiper-next" tabindex="0" role="button"
                                                             aria-label="Next slide"
                                                             aria-controls="swiper-wrapper-58d93ccb75febcb9"></p>
@@ -873,12 +890,12 @@
 
                         <div class="slider-control">
                             <div class="dots">
-                                <p class="swiper-pagination swiper-pagination-bullets swiper-pagination-horizontal">
+                                <div class="swiper-pagination swiper-pagination-bullets swiper-pagination-horizontal">
                                     <span class="swiper-pagination-bullet"></span><span
                                         class="swiper-pagination-bullet"></span><span
                                         class="swiper-pagination-bullet swiper-pagination-bullet-active"
                                         aria-current="true"></span>
-                                </p>
+                                </div>
                             </div>
                             <p class="swiper-prev" tabindex="0" role="button" aria-label="Previous slide"
                                 aria-controls="swiper-wrapper-97e5b2d60e250959"></p>

@@ -122,8 +122,7 @@ li {
 }
 
 .top-icon.search {
-    background-image: url(
-https://www.soopsori.co.kr/data/skin/front/soopsori_v1/img/common/btn/btn_top_search.svg);
+    background-image: url(https://www.soopsori.co.kr/data/skin/front/soopsori_v1/img/common/btn/btn_top_search.svg);
 }
 
 .top-icon.location {
@@ -139,10 +138,11 @@ https://www.soopsori.co.kr/data/skin/front/soopsori_v1/img/common/btn/btn_top_se
 }
 
 .main_visual {
-    
+
     width: 100%;
-   
-    position: relative; /* .pager의 기준!!!! */
+
+    position: relative;
+    /* .pager의 기준!!!! */
 }
 
 .slide-box {
@@ -152,8 +152,91 @@ https://www.soopsori.co.kr/data/skin/front/soopsori_v1/img/common/btn/btn_top_se
     outline: 3px solid red;
 }
 
-.slide-box .gallery {
+.slide-box .wood-bed {
     display: flex;
     width: 300%;
-    position: relative; /* 좌표를 사용하기 위해 position 설정! */
+    position: relative;
+    /* 좌표를 사용하기 위해 position 설정! */
 }
+
+.swiper-slide {
+    position: relative;
+    margin-top: 76px;
+    letter-spacing: -2px;
+}
+
+.swiper-slide .txt1,
+.swiper-slide .txt2 {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.swiper-slide .txt1 {
+    font-size: 160px;
+    font-weight: 600;
+    color: #fff;
+    bottom: 140px;
+    /* txt2보다 위에 오도록 더 위로 */
+    /* 원하는 폰트/색상 등 추가 */
+}
+
+.swiper-slide .txt2 {
+    font-size: 24px;
+    font-weight: 600;
+    bottom: 110px;
+    color: #fff;
+    /* 원하는 폰트/색상 등 추가 */
+}
+
+.txt-box {
+    opacity: 0;
+    transform: translateY(100px);
+    transition: all 1s;
+}
+
+.txt-box.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.slider-control {
+    z-index: 5;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+}
+
+.main_visual .slider-control {
+    position: absolute;
+    bottom: 70px;
+    left: 0;
+    width: calc(100% - 300px);
+    padding-left: 40px;
+}
+
+
+
+.swiper-pagination {
+    position: absolute;
+    text-align: center;
+    transition: .3s opacity;
+    transform: translate3d(0, 0, 0);
+    z-index: 10;
+    display: flex;  /* flex 컨테이너로 설정 */
+    width: 100%;    /* 전체 너비 사용 */
+}
+
+
+.swiper-pagination-bullet {
+    margin: 0 !important;
+    flex: 1;        
+    height: 3px;
+    padding: 0;
+    background: #fff;
+    opacity: 0.2;    
+    border-radius: 0;
+
+    position: relative;
+}
+
