@@ -183,7 +183,7 @@ li {
 
 .swiper-slide .txt2 {
     font-size: 24px;
-    font-weight: 600;
+    font-weight: 500;
     bottom: 110px;
     color: #fff;
     /* 원하는 폰트/색상 등 추가 */
@@ -209,7 +209,7 @@ li {
 
 .main_visual .slider-control {
     position: absolute;
-    bottom: 70px;
+    bottom: 100px;
     left: 0;
     width: calc(100% - 300px);
     padding-left: 40px;
@@ -238,5 +238,33 @@ li {
     border-radius: 0;
 
     position: relative;
+}
+
+.main_visual .slider-control > div.num {
+    position: absolute;
+    right: -90px;
+    
+}
+
+.main_visual .slider-control > div {
+    /* position: relative; */
+    color: rgb(255, 255, 255);
+}
+
+.swiper-prev {
+    background: url(https://www.soopsori.co.kr/data/skin/front/soopsori_v1/img/common/btn/btn_slide_main_prev.svg) 0px 0px / contain no-repeat;
+}
+
+.swiper-next {
+    background: url(https://www.soopsori.co.kr/data/skin/front/soopsori_v1/img/common/btn/btn_slide_main_next.svg) 0px 0px / contain no-repeat;
+}
+
+.swiper-prev, .swiper-next {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    margin-left: 16px;
+    display: inline-block !important;
+    transform: none !important;
 }
 
